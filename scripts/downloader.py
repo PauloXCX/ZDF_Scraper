@@ -105,7 +105,7 @@ def get_download_links(search_item):
                     link = "https://www.zdf.de"+child["href"]
 
                     name_no_special = re.sub('\W',' ',name)
-                    ydl_opts = {'outtmpl': "downloads/"+search_item.title+"/"+name_no_special+"/"+child.text.strip()+".mp4"}
+                    ydl_opts = {'outtmpl': "downloads/"+search_item.link.split('/')[-1]+"/"+name_no_special+"/"+child.text.strip()+".mp4"}
                     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                         ydl.download([link])
 

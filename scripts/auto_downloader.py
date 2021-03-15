@@ -13,38 +13,13 @@ class results:
         self.link = link
         self.belongs_to = belongs_to
 
-def search(search_string):
-    search_string = str(search_string).replace(" ","+")
-    url = "https://www.zdf.de/suche?q="+search_string+"&synth=true&sender=Gesamtes+Angebot&from=&to=&attrs=&abName=ab-2021-02-22&abGroup=gruppe-a"
-
-    page = requests.get(url)
-    if page.status_code == 200:
-        content = page.content
-    soup = BeautifulSoup(content, "html.parser")
-    temp = soup.find(id="aria-search-block")
-    result_boxes = temp.findChildren(recursive=False)
-
-    search_results = []
-    for box in result_boxes:
-        children = box.findChildren()
-        belongs_to = None
-        for child in children:
-            if child.name == "a":
-                title = child.text.replace("-","").replace("\n","").strip()
-            if child.has_attr('class') and child['class'][0] == 'teaser-cat-brand-ellipsis':
-                belongs_to = child.text.strip()
-            if child.has_attr('class') and child['class'][0] == 'special-info':
-                date = child.text.strip()
-            if child.has_attr('class') and child['class'][0] == 'teaser-title-link':
-                link = "https://www.zdf.de/"+child['href']
-        search_results.append(results(title,date,link,belongs_to))
-    return search_results
-
 def download(link, req_block):
+    print(link.split('/')[-1])
     page = requests.get(link)
     if page.status_code == 200:
         content = page.content
     soup = BeautifulSoup(content, "html.parser")
+    
 
     full_block = soup.find("div", {"class": "sb-page"})
     temp = full_block.findChildren(recursive=False)
@@ -74,12 +49,13 @@ def download(link, req_block):
         children = html.findChildren()
         for child in children:
             if child.has_attr('class') and 'teaser-title-link' in child['class']:
-                link = "https://www.zdf.de"+child["href"]
+                link2 = "https://www.zdf.de"+child["href"]
 
                 name_no_special = re.sub('\W',' ',name)
                 ydl_opts = {'outtmpl': "downloads/"+link.split('/')[-1]+"/"+name_no_special+"/"+child.text.strip()+".mp4"}
+                print("----------------------"+link2.split('/')[-1])
                 with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-                    ydl.download([link])
+                    ydl.download([link2])
 
 if __name__ == '__main__':
     if os.path.isfile('series.txt'): 
