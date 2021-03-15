@@ -59,7 +59,8 @@ def prepare_selection_array(search_results):
             result_type = "Sendung/film"
 
         selection = result.title + " "*(max_title-len(result.title)) + "|| " + result.date+" || "+ str(result.belongs_to).replace("None","    ") + " "*(max_belongs_to-len(str(result.belongs_to)))+" || "+result_type
-        selections.append(selection)
+        if result_type == "Serie":
+            selections.append(selection)
     return selections
 
 def get_download_links(search_item):
