@@ -36,20 +36,7 @@ Once you added a series for automatic download with the downloader script, this 
 
 ZDF_Scraper depends on certain python libraries, which can be installed with the following commands:
 
-Installation of Beatifulsoup4:
+Install Requirements:
 
-`pip3 install bs4`
+`pip3 install -r requirements.txt`
 
-Installation of Inquirer:
-
-`pip3 install inquirer`
-
-Installation of youtube-dl:
-
-`pip3 install youtube-dl`
-
-## 3. make scripts executable:
-`chmod +x ZDF_Scraper/scripts/downloader.py && chmod +x ZDF_Scraper/scripts/auto_downloader.py`
-
-## 4. Execute Scripts
-Scripts can be executed with `./downloader.py` & `./auto_downloader.py`

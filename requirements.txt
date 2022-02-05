@@ -1,10 +1,15 @@
 beautifulsoup4==4.10.0
 blessed==1.19.1
 bs4==0.0.1
+certifi==2021.10.8
+charset-normalizer==2.0.11
+idna==3.3
 inquirer==2.9.1
 python-editor==1.0.4
 readchar==3.0.5
+requests==2.27.1
 six==1.16.0
 soupsieve==2.3.1
+urllib3==1.26.8
 wcwidth==0.2.5
 youtube-dl==2021.12.17
